@@ -28,17 +28,17 @@
             <div class="row p-5 justify-content-center">
                 <div class="col-12 text-center mb-5">
                     <input type="text" v-model="inputVal" class="me-3" placeholder="nuovo prodotto"
-                        @keydown.enter="addVal(inputVal)">
-                    <button class="btn btn-success" @click="addVal(inputVal)"> Aggiungi</button>
+                        @keydown.enter="addVal(inputVal, false)">
+                    <button class="btn btn-success" @click="addVal(inputVal,false)"> Aggiungi</button>
                 </div>
                 <div class="col-12 col-md-6 text-center bg-light">
                     <ul class="p-3" v-if="list.length >= 1">
-                        <li @click="check()" :class="(itemCompleted) ? 'cross' : '' " v-for="(element,index) in list"
-                            class="d-flex justify-content-between border-bottom item">
-                            <span class="fs-4 ps-2">
-                                <i :class="(itemCompleted) ? 'active' : '' " class="fa-solid fa-check"></i>{{element}}
+                        <li v-for="(element,index) in list" class="d-flex justify-content-between border-bottom item">
+                            <span @click=check(index) :class="(element.cross) ? 'cross' : '' "
+                                class="fs-4 ps-2 col-11 text-start">
+                                <i :class="{'active' : element.cross}" class="fa-solid fa-check"></i>{{element.text}}
                             </span>
-                            <span class="p-1">
+                            <span class="p-1 col-1">
                                 <i @click="removeVal(index)" class="fa-solid fa-trash-can fs-5"></i>
                             </span>
                         </li>

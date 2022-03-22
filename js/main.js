@@ -16,13 +16,20 @@ const app = new Vue({
     el: '#app',
     data: {
         inputVal: "",
-        list: [],
+        list: [{
+            text: 'acqua',
+            cross: false,
+        }],
         itemCompleted: false,
     },
     methods: {
-        addVal(content) {
+        addVal(content, isCross) {
             if (content.trim() !== "") {
-                this.list.push(content);
+                const newList = {
+                    text: content.trim(),
+                    cross: isCross,
+                }
+                this.list.push(newList);
                 this.inputVal = "";
             } else {
                 console.warn("non hai inserito niente");
@@ -37,9 +44,12 @@ const app = new Vue({
             }
         },
 
-        check: function () {
-            this.itemCompleted = !this.itemCompleted;
+        check(toIndex) {
+            if (this.list[toIndex] != undefined) {
+                this.list[toIndex].cross = !this.list[toIndex].cross;
+            } else {
+                console.warn('Stai cercando di attivare una funzionalità su un elemento che non esiste dalla todo list');
+            }
         }
-
     }
 });
